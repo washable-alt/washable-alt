@@ -24,9 +24,10 @@ class MoneyMachine:
         
         
         for coin in self.COIN_VALUES:
-            number_of_currency_inserted = int(input(f"How many {coin}?: "))
+            number_of_currency_inserted = input(f"How many {coin}?: ")
             if number_of_currency_inserted == 'off':
                 CoffeeMachine().switch_off_coffee_machine()
+            number_of_currency_inserted = int(number_of_currency_inserted)
             self.money_received += number_of_currency_inserted * self.COIN_VALUES[coin]
         return self.money_received
 
