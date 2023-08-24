@@ -39,11 +39,11 @@ class Scoreboard(Turtle):
 
     def write_high_score_to_file(self):
         # Relative path
-        with open( './Day24/highscore.txt', 'w') as f:
+        with open( '.\\highscore.txt', 'w') as f:
             f.write(str(self.high_score))
 
     def read_high_score_to_game(self):
-        with open('./Day24/highscore.txt', 'r') as f:
+        with open('.\\highscore.txt', 'r') as f:
             self.high_score = int(f.read())
         return self.high_score
     
