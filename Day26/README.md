@@ -46,3 +46,9 @@ equivalent to
     for student, score in student_scores.items():
         if score>=60:
             passed_students[student] = score
+
+# Nato Alphabet Project
+
+Create a list of the phonetic code words from a word that the user inputs
+
+i.e. Hello -> Hotel Echo Lima Lima Oscar
