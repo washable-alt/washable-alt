@@ -21,4 +21,12 @@ Day 27
 
 
 # Convert Mile to Km converter
-# In Progress 
+# Create the miles label
+# Create the kilometers label
+# use .config command to change text
+# create the convert button
+
+# Created a second mile to km converter with a click event that removes the entry text when clicked and justify the user input to center
+
+# for the pack.py
+# Credits to Codemy.com tutorial on youtube

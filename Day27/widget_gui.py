@@ -24,14 +24,14 @@ def action():
 button = tk.Button(text="Click Me", command=action)
 
 # set the x and y coordinates
-button.place(x=500, y=150)
+button.place(x=500, y=150)   
 
 # place button at gui window
 #button.pack()
 
 #Entries
 entry = tk.Entry(width=30)
-#Add some text to begin with
+#Add some text to begin with 
 entry.insert(tk.END, string="Type..." )
 #Gets text in entry
 #print(entry.get())
