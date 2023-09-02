@@ -52,3 +52,5 @@ equivalent to
 Create a list of the phonetic code words from a word that the user inputs
 
 i.e. Hello -> Hotel Echo Lima Lima Oscar
+
+Adding try-except block for KeyError 
