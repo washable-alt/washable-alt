@@ -45,6 +45,13 @@ print(dictionary)
 #except Exception as e:
 #    print(e)
 
-word = input("Enter a word: ").upper()
-output_list = [dictionary[letter] for letter in word]
-print(output_list)
+def generate_phonetic():
+    word = input("Enter a word: ").upper()
+    try:    
+        output_list = [dictionary[letter] for letter in word]
+    except KeyError:
+        print("Sorry, only letters in the alphabet please.")
+    else:
+        print(output_list)
+
+generate_phonetic()
