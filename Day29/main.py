@@ -40,34 +40,8 @@ def main():
         website_Label.grid(row=1, column=0, padx=(10,0))
 
         # Create the entry with column span
-        website_Entry = Entry(width=21)
-        website_Entry.grid(row=1, column=1,padx=(0,16))
-
-        # Create the search button
-
-        def on_enter(e):
-            search_Button.config(bg="blue", fg="white")
-
-        def on_leave(e):
-            search_Button.config(bg="SystemButtonFace", fg="black")
-        
-        def find_password():
-            website = website_Entry.get()
-            with open(".\\Day29\\data.json") as data_file:
-                data = json.load(data_file)
-                if website in data:
-                    email = data[website]['email']
-                    password = data[website]['password'] 
-                    messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
-                else:
-                    messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
-
-        search_Button = Button(root, text="Search", bg="SystemButtonFace", fg="black", command=find_password)
-        search_Button.grid(row=1, column=2, padx=(0,28))
-
-        # Bind events to change the button color
-        search_Button.bind("<Enter>", on_enter)
-        search_Button.bind("<Leave>", on_leave)
+        website_Entry = Entry(width=47)
+        website_Entry.grid(row=1, column=1,columnspan=2)
         
         email_Label = Label(root, text="Email/Username: ", font=(FONT_NAME, 12, "bold"))
         email_Label.grid(row=2, column=0, padx=(10,0))
@@ -97,13 +71,7 @@ def main():
             website = website_Entry.get()
             email = email_Entry.get()
             password = password_Entry.get()
-            new_data = {
-                website: {
-                    "email": email,
-                    "password": password,
-                }
-            }
-
+           
             if len(website) == 0 or len(password) == 0:
                 messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty.")
             # Validate email format
@@ -112,44 +80,18 @@ def main():
                 email_Entry.delete(0, END)  # Clear the invalid input
                 return
             else:
-                #is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} "
-                #                               f"\nPassword: {password} \nIs it ok to save?")
-                #if is_ok:
+                is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} "
+                                               f"\nPassword: {password} \nIs it ok to save?")
+                if is_ok:
                     # Create a MyPass instance and add entry to file
-                    #password_entry = MyPass()
-                    #password_entry.set_website(website)
-                    #password_entry.set_email(email)
-                    #password_entry.set_password(password)
-                    #password_entry.add_entry_to_file()
-                    # Write json, read json and update json
-                    # json.dump(), json.load() and json.update() respectively
-                # write file
-                #with open(".\\Day29\\data.json", 'w') as data_file:
-                #    json.dump(new_data, data_file, indent=4)
-#
-                #    website_Entry.delete(0, END)
-                #    password_Entry.delete(0, END)
-                # read file
-                try:    
-                    with open(".\\Day29\\data.json", 'r') as data_file:
-                        # Reading old data
-                        data = json.load(data_file)
-                        # Updating old data with new data
-                except FileNotFoundError:
-                    with open(".\\Day29\\data.json", 'w') as data_file:
-                        json.dump(new_data, data_file, indent=4)
-                    print(type(data))
-                    data.update(new_data)
-                else: 
-                    #Updating old data with new data
-                    data.update(new_data)
-
-                    with open(".\\Day29\\data.json", 'w') as data_file:
-                        # Saving updated data
-                        json.dump(data, data_file, indent=4)
-                finally:
+                    password_entry = MyPass()
+                    password_entry.set_website(website)
+                    password_entry.set_email(email)
+                    password_entry.set_password(password)
+                    password_entry.add_entry_to_file()
                     website_Entry.delete(0, END)
                     password_Entry.delete(0, END)
+  
 
         # Create an Add Button
         Add_Button = Button(text="Add", justify="center", width=40, command=add_entry_action)

@@ -26,5 +26,5 @@ class MyPass:
 
     def add_entry_to_file(self):
         entry = f"{self.website} | {self.email} | {self.password}\n"
-        with open(".\\passwords.txt", "a") as file:
+        with open(".\\Day29\\passwords.txt", "a") as file:
             file.write(entry)

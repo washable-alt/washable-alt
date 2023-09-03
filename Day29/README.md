@@ -20,5 +20,3 @@ Buttons
    After which, the Website, email and password gets added to a text file, separated by delimiter ' | '.
 
 
-Modified the MyPass Password Manager GUI
-to have search buttion and password generation function
