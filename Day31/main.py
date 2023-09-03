@@ -52,7 +52,7 @@ def next_card():
         canvas.itemconfig(card_word, text=to_learn[card_index]["French"])
         canvas.itemconfig(card_image, image=card_front_img)
     else:
-        canvas.itemconfig(card_title, text="All cards learned!")
+        canvas.itemconfig(card_title, text="All cards learnt!")
         canvas.itemconfig(card_word, text="")
         
         canvas.delete(card_image)  # Remove the card image
