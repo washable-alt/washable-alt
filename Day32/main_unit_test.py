@@ -1,5 +1,4 @@
 import os
-
 from dotenv import load_dotenv
 import unittest
 
@@ -11,10 +10,10 @@ class main(unittest.TestCase):
     email_receiver = os.getenv("EMAIL_RECEIVER")
 
     def test_email_sender_equals_true(self):
-        self.assertTrue(os.getenv("EMAIL_SENDER").lower(), "Insert sender email address here")
+        self.assertEqual(os.getenv("EMAIL_SENDER").lower(), "Insert sender email address here")
 
     def test_email_password_equals_true(self):
-        self.assertEqual;(os.getenv("EMAIL_PASSWORD").lower(), "Insert gmail app password")
+        self.assertEqual(os.getenv("EMAIL_PASSWORD").lower(), "Insert gmail app password")
 
     def test_email_receiver_equals_true(self):
         self.assertEqual(os.getenv("EMAIL_RECEIVER").lower(), "Insert receiver email address here")
