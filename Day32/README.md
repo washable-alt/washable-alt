@@ -27,7 +27,7 @@ This automated birthday wisher helps you to send email and wish the recipient a 
 
 
 ## Credits to The PyCoach (How to Send Emails with Python)
-## Credits to https://tenor.com/view/birthday-cake-birthday-birthday-party-happy-birthday-birthdays-gif-10164098181755864449
+## Picture is taken from https://tenor.com/view/birthday-cake-birthday-birthday-party-happy-birthday-birthdays-gif-10164098181755864449
 
 ## Use case: Sending emails to friends so that they can feel appreciated that the user remembers their birthday (One way is to use task scheduler for Windows; try to make it work)
 
