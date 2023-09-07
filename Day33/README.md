@@ -34,3 +34,4 @@ If you are using the crontab to automate the sending of email, then you need to 
 
 I automate it into trash because I do not want to see the mail if the ISS station is not overhead of me. Nonetheless, I still can see the coordinates of the ISS station. 
 
+Update: It works if you write a vbs script, to keep the computer from sleeping. However, you cannot close the lid of your laptop. Alternative would have to be finding cloud hosting providers for such use case, or do not turn off the lid of the laptop.
