@@ -34,3 +34,6 @@ If you are using the crontab to automate the sending of email, then you need to 
 
 I automate it into trash because I do not want to see the mail if the ISS station is not overhead of me. Nonetheless, I still can see the coordinates of the ISS station. 
 
+![iss_not_overhead](https://github.com/washable-alt/washable-alt/assets/127829594/918734d5-53f8-4b58-b5df-098e0d92db33)
+
+
