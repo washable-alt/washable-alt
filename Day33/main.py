@@ -94,7 +94,7 @@ def main():
 
             subject = "Notification"
 
-            body = """
+            body = f"""
             Hey, look up, ISS is now overhead of you! Current latitude: {iss_latitude}, Current longtitude: {iss_longitude}.
             """
             em = EmailMessage()
