@@ -1,5 +1,8 @@
 # Day 33 
 
+
+Learning of concepts for API and understanding the terms Latitude and Longitude
+
 Application Programming Interface (API) is a set of commands, functions, protocols, and objects, that programmers can use to create software or interact with an external system. 
 
 Your Program -> Sends a Request -> External System
@@ -19,3 +22,15 @@ They are measured in degrees - Each degree can be divided up to 60 minutes, each
 31°8′15″E 31 degrees East of Prime Meridian
 
 For the Sunrise and Sunset API, twilight is the period of time before sunrise and after sunset, in which the atmosphere is partially illuminated by the sun, being neither totally dark or completely lit. 
+
+Goal: To automate sending of email when the ISS is overhead of your current longitude and latitude.
+
+Automate using crontab and VirtualBox, as long as the VirtualBox is not being shut down.
+Crontab allows the file to be run every 60 seconds. 
+
+`* * * * * /path/to/your-bash-script-name.sh`
+
+If you are using the crontab to automate the sending of email, then you need to comment out the time.sleep(60) and change the `while` loop to an `if` statement.  
+
+I automate it into trash because I do not want to see the mail if the ISS station is not overhead of me. Nonetheless, I still can see the coordinates of the ISS station. 
+
