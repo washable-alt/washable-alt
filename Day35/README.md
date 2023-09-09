@@ -1,3 +1,4 @@
+![bring_an_umbrella](https://github.com/washable-alt/washable-alt/assets/127829594/a73ed7a2-da2a-42d1-aa3c-12a93681c267)
 Day 35 
 
 # Objective: print "Bring an Umbrella" if any of the next 12 hourly weather condition codes is less than 700. 
@@ -15,3 +16,5 @@ Afterwards sending of whatsapp message to tell you to bring an umbrella
 
 `main.py` - hourly data for the next 12 hours retrieved; can include data such as current, daily, minutely and hourly
 If the `id` is less than 700, it means weather is not sunny anymore, send a whatapp message
+![bring_an_umbrella](https://github.com/washable-alt/washable-alt/assets/127829594/7318903a-5c7f-4a98-aec9-e1a60f95d375)
+![openweathermap](https://github.com/washable-alt/washable-alt/assets/127829594/398c2185-8334-460f-804a-1dd2928fbdd8)
