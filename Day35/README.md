@@ -1,4 +1,3 @@
-![bring_an_umbrella](https://github.com/washable-alt/washable-alt/assets/127829594/a73ed7a2-da2a-42d1-aa3c-12a93681c267)
 Day 35 
 
 # Objective: print "Bring an Umbrella" if any of the next 12 hourly weather condition codes is less than 700. 
