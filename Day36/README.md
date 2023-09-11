@@ -29,3 +29,4 @@ API I queried was last updated on 2023-09-08, thus I have to minus three days us
 
 Webscrapping is done for the description.
 
+![stock-news-alert-normal-project](https://github.com/washable-alt/washable-alt/assets/127829594/e8df1030-dfb8-44dd-8515-a2eb6c5e7980)
