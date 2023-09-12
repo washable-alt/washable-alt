@@ -6,9 +6,10 @@ Learning about POST/PUT/DELETE Request
 
 Learning about using authentication token as the request header in the post request
 
-# Example post request: response = requests.post(url=, json=, header=) 
-# print json: print(response.text)
-
+"""
+Example post request: response = requests.post(url=, json=, header=)
+print json: print(response.text)
+"""
 # Creating a new Pixela user
 `POST` - /v1/users/
 - token [`required`] (token is hashed and saved)
