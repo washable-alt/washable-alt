@@ -32,3 +32,5 @@ Second step is to do a post request, which requires an `url`, `json` and `header
    headers = f"Authorisation: Basic {basic_auth}"
 3. Bearer Auth - Uses a token or secret of my choosing
    headers = f"Authorisation: Bearer {token}"
+
+![Alt text](image.png)
