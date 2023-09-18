@@ -8,5 +8,3 @@
 ![Alt text](image.png)
 
 
-# Backlog: 
-Send email to all club members

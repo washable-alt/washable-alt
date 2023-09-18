@@ -5,6 +5,9 @@ import json
 from pprint import pprint
 from datetime import datetime, timedelta
 from twilio.rest import Client
+import smtplib
+from email.message import EmailMessage
+import ssl
 
 load_dotenv()
 
@@ -23,6 +26,13 @@ TEQUILA_ENDPOINT = os.getenv("TEQUILA_LOCATION_ENDPOINT")
 TEQUILA_API_KEY = os.getenv("TEQUILA_API_KEY")
 
 TEQUILA_SEARCH_ENDPOINT = os.getenv("TEQUILA_SEARCH_ENDPOINT")
+
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+global message
+message = []
 
 auth_headers = {
     "Authorization": f"Bearer {SHEETY_TOKEN}" 
@@ -176,12 +186,17 @@ def prices_for_cities_tequila_compare_in_sheety_and_send_sms_or_email(data):
                 #pprint(response.json()['data'][0]['route'][3]['local_departure'].split('T')[0])
                 if local_departure_date == return_date:
                     print(f"One-way ticket found! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code} on {local_departure_date}.\n")
-                    message = f"One-way ticket found! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code} on {local_departure_date}."
+                    text = f"One-way ticket found! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code} on {local_departure_date}.\n"
+                    message.append(text)
+                    print(message)
                     #send_sms(message=message)
+                    
             elif int(real_time_price) < int(updated_data['price']['lowestPrice']):
                 print(f"Low price alert! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code}, from {local_departure_date} to {return_date}.\n")
-                message = f"Low price alert! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code}, from {local_departure_date} to {return_date}"
+                text = f"Low price alert! Only £{real_time_price} to fly from {departure_city_name}-{departure_airport_iata_code} to {arrival_city_name}-{arrival_airport_iata_code}, from {local_departure_date} to {return_date}.\n"
                 #send_sms(message=message)
+                message.append(text)
+                print(message)
 
         except IndexError:
             print(f"No flights found for {data['prices'][y]['iataCode']}")
@@ -242,9 +257,9 @@ def check_for_stop_over_flights(iata_code):
                     stop_over_destination = []
 
                     ## data['data'][0]['price] should be less than the no_flight_data['price']['lowestPrice']
-                    #if int(data['data'][0]['price']) < int(no_flight_data['price']['lowestPrice']):
-                    if int(data['data'][0]['price']) > int(no_flight_data['price']['lowestPrice']):
-                        print(f"Low price alert! Only £{price} to fly from {city_from}-{city_code_from} to {city_to}-{city_code_to}, from {departure_date} to {return_stopover_date}.")
+                    if int(data['data'][0]['price']) < int(no_flight_data['price']['lowestPrice']):
+                    #if int(data['data'][0]['price']) > int(no_flight_data['price']['lowestPrice']):
+                        print(f"Low price alert! Only £{price} to fly from {city_from}-{city_code_from} to {city_to}-{city_code_to}, from {departure_date} to {return_stopover_date}.\n")
                         
                         for route in data['data'][0]['route'][1:stop_over_count]:
                             stop_over_city = route['cityFrom']
@@ -256,9 +271,14 @@ def check_for_stop_over_flights(iata_code):
                             
                         if len(stop_over_destination) == 1:
                             print(f"Flight has 1 stop over, via {stop_over_destination[0]}. ")
+                            text = f"Low price alert! Only £{price} to fly from {city_from}-{city_code_from} to {city_to}-{city_code_to}, from {departure_date} to {return_stopover_date}.\nFlight has 1 stop over, via {stop_over_destination[0]}."
+                            message.append(text)
+
                         elif len(stop_over_destination) > 1:
                             print(f"Flight has {len(stop_over_destination)} stop overs, via {', '.join(stop_over_destination)}. ")
-                                        
+                            text = f"Low price alert! Only £{price} to fly from {city_from}-{city_code_from} to {city_to}-{city_code_to}, from {departure_date} to {return_stopover_date}.\nFlight has {len(stop_over_destination)} stop overs, via {', '.join(stop_over_destination)}."
+                            message.append(text)   
+
                 except Exception as e: 
                     print(f"{e}")
 
@@ -294,7 +314,65 @@ def flight_club_email_list():
         post_response = requests.post(SHEETY_USER_ENDPOINT, json=sheet_inputs, headers=auth_headers)
         pprint(post_response)
         pprint(post_response.text)
+
+def preprocess_email_receiver():
+    global EMAIL_RECEIVER
+    EMAIL_RECEIVER = []
+
+    parameters = {
+        "user": {
+            "firstName": "",
+            "lastName": "",
+            "email": ""
+        }
+    }
+    response = requests.get(SHEETY_USER_ENDPOINT, params=parameters, headers=auth_headers)
+    data = json.loads(response.text)
+    print(data)
+    for user in data['users']:
+        print(user)
+        print(user['email'])
+        EMAIL_RECEIVER.append(user['email'])
     
+    EMAIL_RECEIVER = ', '.join([str(email) for email in EMAIL_RECEIVER])
+    print(EMAIL_RECEIVER)
+    return EMAIL_RECEIVER
+
+def preprocess_message(message):
+    new_message = ''.join([str(text) for text in message])
+    print(message)
+    return new_message
+
+def send_email(message):
+        
+        subject = "Melvin's Flight Club Notifications - Lowest Price Deals and More!"
+
+        body = message
+
+        em = EmailMessage()
+        em['From'] = EMAIL_SENDER
+        em['To'] = EMAIL_RECEIVER
+
+        em['Subject'] = subject
+
+        em.set_content(body)
+
+        # Split the email_receiver string into a list of email addresses
+        email_receiver_list = EMAIL_RECEIVER.split(',')
+
+        context = ssl.create_default_context()
+    
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            #Login
+            smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
+            ## for just one email address
+            #smtp.sendmail(email_sender, email_receiver, em.as_string())
+            ## for multiple email addresses
+            # Send the email to each email address in the list
+            for receiver_email in email_receiver_list:
+                em.replace_header('To', receiver_email)
+                smtp.send_message(em)
+        print("Successful")
 
 def main():
     try:
@@ -307,9 +385,12 @@ def main():
             if (data['prices'][i]['iataCode']) == "TESTING" or (data['prices'][i]['iataCode']) == "":
                 get_request_for_tequila_and_sheety()
         prices_for_cities_tequila_compare_in_sheety_and_send_sms_or_email(data)
-
+        preprocess_email_receiver()
+        new_message = preprocess_message(message)
+        send_email(new_message)
+        
     except Exception as e:
-        print(f"{e}: error code in main")
+        print(f"{e}")
     
 
 if __name__ =="__main__":
