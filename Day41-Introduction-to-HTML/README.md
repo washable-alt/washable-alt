@@ -12,3 +12,6 @@ Section 2.2 - Using the paragraph header tag
 Section 2.3 - Using the <br/> and horizontal rule <hr/> tags
 `<br/>` - new line
 `<hr/>` - a straight horizontal line that separates the page into section and cannot be written over
+
+
+![Alt text](4.png) ![Alt text](1.png) ![Alt text](2.png) ![Alt text](3.png)
