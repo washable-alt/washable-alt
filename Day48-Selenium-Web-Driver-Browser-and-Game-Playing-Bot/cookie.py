@@ -88,7 +88,7 @@ def check_store():
                 elif time() > two_min:
                     if not third_element_removed:
                         upgrades.pop()
-                        second_element_removed=True
+                        third_element_removed=True
                     buy_item(upgrades[i])
                 elif time() < one_min:
                     # buy all possible upgrades
