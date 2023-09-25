@@ -10,12 +10,14 @@ def cps():
 
 def buy_item(upgrade):
     buy_item = driver.find_element(By.ID, value='buy'+ upgrade[0].strip())
-    print(buy_item.text)
+    #print(buy_item.text)
     try:
-        buy_item.click()
+        buy_item.click()   
     except NoSuchElementException:
         sleep(0.01)
         buy_item.click()
+    except StaleElementReferenceException:
+        print("Cursor not there anymore!")
 
 
 def check_money():
@@ -37,16 +39,16 @@ def check_store():
     # pop removes the last element of the list
     store_items.pop()
     store_list = [item.text for item in store_items]
-    print(store_list)
+    #print(store_list)
     upgrades = []
     for item in store_items:
         upgrades.append([
             item.text.split('-')[0].strip(),
             int((item.text.split('-')[1].replace(',','')))
         ])
-    print(upgrades)
+    #print(upgrades)
     money = int(check_money())
-    print(money)
+    #print(money)
     first_element_removed = False
     second_element_removed = False
     third_element_removed = False
@@ -56,43 +58,51 @@ def check_store():
             try:
                 if time() > half_min:
                     if not first_element_removed:
-                        upgrades.pop()
+                        upgrades.pop(0)
                         first_element_removed=True
                     buy_item(upgrades[i])
-                elif time() > one_min:
+                    print(upgrades)
+                if time() > one_min:
                     if not second_element_removed:
-                        upgrades.pop()
+                        upgrades.pop(0)
                         second_element_removed=True
+                    print(upgrades)
                     buy_item(upgrades[i])
-                elif time() > two_min:
+                if time() > two_min:
                     if not third_element_removed:
-                        upgrades.pop()
+                        upgrades.pop(0)
                         second_element_removed=True
+                    print(upgrades)
                     buy_item(upgrades[i])
-                elif time() < one_min:
+                if time() < one_min:
                     # buy all possible upgrades
                     buy_item(upgrades[i])
+                    print(upgrades)
 
             except StaleElementReferenceException as e:
                 sleep(0.01)
                 if time() > half_min:
                     if not first_element_removed:
-                        upgrades.pop()
+                        upgrades.pop(0)
                         first_element_removed=True
                     buy_item(upgrades[i])
-                elif time() > one_min:
+                    print(upgrades)
+                if time() > one_min:
                     if not second_element_removed:
-                        upgrades.pop()
+                        upgrades.pop(0)
                         second_element_removed=True
+                    print(upgrades)
                     buy_item(upgrades[i])
-                elif time() > two_min:
+                if time() > two_min:
                     if not third_element_removed:
-                        upgrades.pop()
-                        third_element_removed=True
+                        upgrades.pop(0)
+                        second_element_removed=True
+                    print(upgrades)
                     buy_item(upgrades[i])
-                elif time() < one_min:
+                if time() < one_min:
                     # buy all possible upgrades
                     buy_item(upgrades[i])
+                    print(upgrades)
             
 def main():
      # Keep Chrome browser open after the program finishes

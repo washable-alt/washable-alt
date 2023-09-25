@@ -27,3 +27,4 @@ I saw another solution which was quite readable. Credits to Pixelum2022 on Udemy
 
 ![Alt text](image.png)
 ![Alt text](image-1.png)
+![Alt text](image-2.png)
